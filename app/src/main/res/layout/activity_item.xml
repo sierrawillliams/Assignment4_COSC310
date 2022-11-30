@@ -129,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <ImageView
-        android:id="@+id/dark_roast_photo"
+        android:id="@+id/photo"
         android:layout_width="350sp"
         android:layout_height="250sp"
         android:src="@drawable/istockphoto_1143290013_612x612"

@@ -70,54 +70,67 @@ public class Item extends AppCompatActivity {
             price12.setText("$4.75");
             price16.setText("$5.25");
             price20.setText("$5.75");
+            picture.setImageResource(R.drawable.icedpsl);
         }  else if (name.equals("Iced Coffee")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.icedcof);
         }  else if (name.equals("Cold Brew")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.coldbrew);
         }  else if (name.equals("Iced Cappuccino")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.icedcap);
         }  else if (name.equals("Pumpkin Chai Latte")){
             price12.setText("$4.75");
             price16.setText("$5.25");
             price20.setText("$5.75");
+            picture.setImageResource(R.drawable.pcl);
         }  else if (name.equals("Tea")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.tea);
         }  else if (name.equals("Hot Chocolate")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.hotchoc);
         }  else if (name.equals("Chai Latte")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.chai);
         }  else if (name.equals("Matcha Latte")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.matcha);
         }  else if (name.equals("Iced Pumpkin Chai Latte")){
             price12.setText("$4.75");
             price16.setText("$5.25");
             price20.setText("$5.75");
+            picture.setImageResource(R.drawable.icedpcl);
         }  else if (name.equals("Iced Tea")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.icedtea);
         }  else if (name.equals("Iced Chai Latte")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.icedchai);
         }  else if (name.equals("Iced Matcha Latte")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.icedmatch);
         } else if (name.equals("Juice")){
             smol.setText("Orange");
             mid.setText("Apple");
@@ -130,6 +143,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$3.25");
             price16.setText("$3.25");
             price20.setText("$3.25");
+
+            picture.setImageResource(R.drawable.juice);
         } else if (name.equals("Flavour Shots")){
             smol.setText("Vanilla");
             mid.setText("Hazelnut");
@@ -142,6 +157,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$0.25");
             price16.setText("$0.25");
             price20.setText("$0.25");
+
+            picture.setImageResource(R.drawable.flavour);
         } else if (name.equals("Espresso")){
             smol.setText("One");
             mid.setText("Two");
@@ -154,6 +171,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$0.75");
             price16.setText("$0.75");
             price20.setText("$0.75");
+
+            picture.setImageResource(R.drawable.espresso);
         } else if (name.equals("Milk")){
             smol.setText("Splash");
             mid.setText("Normal");
@@ -166,6 +185,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$0.25");
             price16.setText("$0.50");
             price20.setText("$0.75");
+
+            picture.setImageResource(R.drawable.milk);
         } else if (name.equals("Cream")){
             smol.setText("Splash");
             mid.setText("Normal");
@@ -178,6 +199,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$0.25");
             price16.setText("$0.50");
             price20.setText("$0.75");
+
+            picture.setImageResource(R.drawable.cream);
         } else if (name.equals("Sugar")){
             smol.setText("One");
             mid.setText("Two");
@@ -190,6 +213,8 @@ public class Item extends AppCompatActivity {
             price12.setText("$0.25");
             price16.setText("$0.50");
             price20.setText("$0.75");
+
+            picture.setImageResource(R.drawable.sugar);
         }
 
 
