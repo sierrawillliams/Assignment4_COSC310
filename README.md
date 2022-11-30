@@ -1,4 +1,4 @@
-# Cosc 310 Assignment 3
+# Cosc 310 Assignment 4
 
 The project is an Android app designed for Coffee shops to help manage their business. The app tracks inventory and sales information to help managers with their daily tasks and provide them with reports to make business decisions.
 
@@ -58,23 +58,10 @@ Classes are organized in the java folder of the app project. These classes are t
 
 ---
 
-## Features Added for Assignment 3
+## Features Added for Assignment 4
 
-1. Delete user and user data
-    - Allows users to wipe their data from the database if they are no longer using the app.
-1. Edit other users
-    - Allows admins to edit the data of other users, or sent a recovery email in case they are locked out of their accounts.
-1. Descriptive toast messages (Open Source Library)
-    - Toasts design to provide better feedback to users when using the app. Toasts are green when an action is successful, red when action failed or there was an error, yellow for a warning, and blue when giving information to the user.
-1. Saving report as a PDF on the device
-    - Allows saving of sales and operations report as a PDF on the device's Documents folder when the user clicks the Save Report button. Added PdfBox-Android library (https://github.com/TomRoush/PdfBox-Android) to allow creating and saving PDF files in android.
-1. Auto Order that now orders now inventory
-   - the auto order functionality now updates the database when orders are placed. Also low stock warning integration so that users won't accidentally     double order. 
-1. Navigation drawer that makes the app more integrated.
-   - Allows users to access all the pages with a navigation drawer.
-1. Item details data
-   - The listitems package to only include the Categories, Choices, and Item classes. The classes creates better functionality and occupy less space, so more efficient. Added different titles for specific items, to make it easier to understand and use.
-   
+1. Dynamic photos for items
+2. Search through items by name
 ---
 ## Testing
 
