@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mFirebaseAuth;
     private String role;
-
     //menu
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -54,8 +53,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String menuLastNameString;
     String menuEmailString;
     FirebaseUser user;
-
-
     Bundle bundle = new Bundle();
     Button items;
 
@@ -68,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navView);
         toolbar = findViewById(R.id.toolbar);
-
         //toolbar
         setSupportActionBar(toolbar);
         //nav_drawer
@@ -80,14 +76,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         //headerInfo
         setMenuNameAndEmail();
-
-
-
         items = findViewById(R.id.items);
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
         ProgressBar progBar = findViewById(R.id.indeterminateBar);
         progBar.setVisibility(View.GONE);
 
@@ -102,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 result.setText(e.toString());
             }
         }
-
         setUpSettings();
         setUpReports();
         setUpLogout();
@@ -115,14 +105,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart(){
         super.onStart();
-
         showLoading();
-
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
         if (mFirebaseUser != null){
             // user is logged in
-
         } else {
             startActivity(new Intent(this, loginActivity.class));
             finish();
@@ -133,36 +119,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-
         endLoading();
-
     }
 
     // show loading circle, hide layout
     private void showLoading(){
-
         ProgressBar progBar = findViewById(R.id.indeterminateBar);
         ConstraintLayout layout = findViewById(R.id.main_layout);
-
         layout.setVisibility(View.GONE);
         progBar.setVisibility(View.VISIBLE);
-
     }
 
     // end loading circle, show layout
     private void endLoading(){
-
         ProgressBar progBar = findViewById(R.id.indeterminateBar);
         ConstraintLayout layout = findViewById(R.id.main_layout);
-
         progBar.setVisibility(View.GONE);
         layout.setVisibility(View.VISIBLE);
-
     }
 
     // settings on click button
     public void setUpSettings(){
-
         Button logoutBut = findViewById(R.id.settingsButton);
         logoutBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // logout user and end activity
     private void setUpLogout(){
-
         Button logoutBut = findViewById(R.id.logoutButton);
         logoutBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,16 +177,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
             }
         });
-
     }
 
     // method that gets user info from database based on their login user id
     public void getInfo(){
-
         String doc = mFirebaseAuth.getUid();
-
         DocumentReference docRef = db.collection("users").document(doc);
-
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -224,35 +196,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         // do stuff
                     }
                 } else {
-
                     DesignToast.makeText(MainActivity.this, "Error", DesignToast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
                 }
-
             }
         });
-
     }
 
     //changes settings text based on role
     public void setUpView(){
-
         Button settingsBut = findViewById(R.id.settingsButton);
         settingsBut.setText(role + " Settings");
     }
 
-    public void placeOrder(View view)
-    {
+    public void placeOrder(View view) {
         Button order = findViewById(R.id.place_order);
         Intent intent = new Intent(this, autoOrder.class);
         startActivity(intent);
     }
 
-
-
     // puts user data in bundle
     private void setInfo(Map<String, Object> fields){
-
-
         String firstName = fields.get("firstName").toString();
         String lastName = fields.get("lastName").toString();
         String email = fields.get("email").toString();
@@ -264,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bundle.putString("email", email);
         bundle.putString("password", pw);
         bundle.putString("role", role);
-
     }
 
     private void setUpItemDetails(){
@@ -280,7 +242,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
@@ -291,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //menuMethods
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.nav_home:
                 break;
@@ -322,13 +282,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
+
     void setMenuNameAndEmail() {
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             DesignToast.makeText(MainActivity.this, "Successfully logged out", DesignToast.LENGTH_SHORT, DesignToast.TYPE_SUCCESS).show();
         } else {
             String uid = user.getUid();
-
 
             DocumentReference documentReference = db.collection("users").document(uid);
             documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {

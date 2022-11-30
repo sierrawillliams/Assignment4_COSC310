@@ -1,52 +1,41 @@
 package com.example.javabucksim.listItems;
 
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import androidx.appcompat.widget.SearchView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
-
-
-import com.google.android.material.navigation.NavigationView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 
 import com.example.javabucksim.R;
 import com.example.javabucksim.orders.autoOrder;
 
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Categories extends AppCompatActivity {
-//        implements NavigationView.OnNavigationItemSelectedListener {
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mFirebaseAuth;
-    int[] productNum = new int[18];
-    String[] productName = {"chai", "blondeRoast", "capp", "coffee", "coldbrew", "cups", "darkRoast", "flavour", "juice", "latte", "lids",
-            "matcha", "mediumRoast", "milk", "sleeves", "stoppers", "sugar", "tea"};
-
-
-//    //menu
+//    implements NavigationView.OnNavigationItemSelectedListener {
+//    menu
 //    DrawerLayout drawerLayout;
 //    NavigationView navigationView;
 //    Toolbar toolbar;
@@ -58,43 +47,33 @@ public class Categories extends AppCompatActivity {
 //    String menuEmailString;
 //    FirebaseUser user;
 
-
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mFirebaseAuth;
+    int[] productNum = new int[18];
+    String[] productName = {"chai", "blondeRoast", "capp", "coffee", "coldbrew", "cups", "darkRoast", "flavour", "juice", "latte", "lids", "matcha", "mediumRoast", "milk", "sleeves", "stoppers", "sugar", "tea"};
+    SearchView searchView;
+    ListView products;
     Button hotCof, coldCof, hotD, coldD, other, back, check;
-    String choice1, choice2, choice3, choice4, choice5, category;
+    SimpleAdapter sa;
+    ArrayList<HashMap<String, String>> list1;
+    ArrayList<HashMap<String, String>> list2;
+    ArrayList<HashMap<String, String>> list3;
+    ArrayList<HashMap<String, String>> list4;
+    ArrayList<HashMap<String, String>> list5;
+    ArrayList<HashMap<String, String>> list6;
+    Spinner sort;
+    String[] sorting = {"SORT BY", "HOT COFFEES", "COLD COFFEES", "HOT DRINKS", "COLD DRINKS", "OTHER"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
-//        //menu
-//        drawerLayout = findViewById(R.id.drawer_layout);
-//        navigationView = findViewById(R.id.nav_view);
-//        toolbar = findViewById(R.id.toolbar);
-//
-//        //toolbar
-//        setSupportActionBar(toolbar);
-//        //nav_drawer
-//        navigationView.bringToFront();
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
-//        drawerLayout.addDrawerListener(toggle);
-//        drawerLayout.setScrimColor(Color.parseColor("#32000000"));
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(this);
-//        //headerInfo
-//        setMenuNameAndEmail();
-
-
-        hotCof = findViewById(R.id.hotCof);
-        coldCof = findViewById(R.id.coldCof);
-        hotD = findViewById(R.id.hotD);
-        coldD = findViewById(R.id.coldD);
-        other = findViewById(R.id.other);
-
         back = findViewById(R.id.backButton);
-
         check = findViewById(R.id.check);
+        searchView = findViewById(R.id.search_bar);
+        products = findViewById(R.id.productList);
+        sort = findViewById(R.id.sort);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,111 +82,65 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-        hotCof.setOnClickListener(new View.OnClickListener() {
+        products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                category = "Hot Coffees";
-                choice1 = "Pumpkin Spice Latte";
-                choice2 = "Dark Roast";
-                choice3 = "Medium Roast";
-                choice4 = "Blonde Roast";
-                choice5 = "Cappuccino";
-                Intent intent = new Intent(Categories.this, Choices.class);
-                intent.putExtra("category", category);
-                intent.putExtra("choice1", choice1);
-                intent.putExtra("choice2", choice2);
-                intent.putExtra("choice3", choice3);
-                intent.putExtra("choice4", choice4);
-                intent.putExtra("choice5", choice5);
-                startActivity(intent);
-            }
-        });
-
-        coldCof.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                category = "Cold Coffees";
-                choice1 = "Iced Pumpkin Spice Latte";
-                choice2 = "Iced Coffee";
-                choice3 = "Iced Latte";
-                choice4 = "Cold Brew";
-                choice5 = "Iced Cappuccino";
-                Intent intent = new Intent(Categories.this, Choices.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("category", category);
-                bundle.putString("choice1", choice1);
-                bundle.putString("choice2", choice2);
-                bundle.putString("choice3", choice3);
-                bundle.putString("choice4", choice4);
-                bundle.putString("choice5", choice5);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        hotD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                category = "Hot Drinks";
-                choice1 = "Pumpkin Chai Latte";
-                choice2 = "Tea";
-                choice3 = "Hot Chocolate";
-                choice4 = "Chai Latte";
-                choice5 = "Matcha Latte";
-                Intent intent = new Intent(Categories.this, Choices.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("category", category);
-                bundle.putString("choice1", choice1);
-                bundle.putString("choice2", choice2);
-                bundle.putString("choice3", choice3);
-                bundle.putString("choice4", choice4);
-                bundle.putString("choice5", choice5);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        coldD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                category = "Cold Drinks";
-                choice1 = "Iced Pumpkin Chai Latte";
-                choice2 = "Iced Tea";
-                choice3 = "Iced Chai Latte";
-                choice4 = "Iced Matcha Latte";
-                choice5 = "Juice";
-                Intent intent = new Intent(Categories.this, Choices.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("category", category);
-                bundle.putString("choice1", choice1);
-                bundle.putString("choice2", choice2);
-                bundle.putString("choice3", choice3);
-                bundle.putString("choice4", choice4);
-                bundle.putString("choice5", choice5);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        other.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                category = "Other";
-                choice1 = "Flavour Shots";
-                choice2 = "Espresso";
-                choice3 = "Milk";
-                choice4 = "Cream";
-                choice5 = "Sugar";
-                Intent intent = new Intent(Categories.this, Choices.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("category", category);
-                bundle.putString("choice1", choice1);
-                bundle.putString("choice2", choice2);
-                bundle.putString("choice3", choice3);
-                bundle.putString("choice4", choice4);
-                bundle.putString("choice5", choice5);
-                intent.putExtras(bundle);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i == 0){
+                    Intent intent = new Intent(Categories.this, Choices.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", productInfo[0][0]);
+                    bundle.putString("choice1", productInfo[0][1]);
+                    bundle.putString("choice2", productInfo[0][2]);
+                    bundle.putString("choice3", productInfo[0][3]);
+                    bundle.putString("choice4", productInfo[0][4]);
+                    bundle.putString("choice5", productInfo[0][5]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if(i == 1){
+                    Intent intent = new Intent(Categories.this, Choices.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", productInfo[1][0]);
+                    bundle.putString("choice1", productInfo[1][1]);
+                    bundle.putString("choice2", productInfo[1][2]);
+                    bundle.putString("choice3", productInfo[1][3]);
+                    bundle.putString("choice4", productInfo[1][4]);
+                    bundle.putString("choice5", productInfo[1][5]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if(i == 2){
+                    Intent intent = new Intent(Categories.this, Choices.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", productInfo[2][0]);
+                    bundle.putString("choice1", productInfo[2][1]);
+                    bundle.putString("choice2", productInfo[2][2]);
+                    bundle.putString("choice3", productInfo[2][3]);
+                    bundle.putString("choice4", productInfo[2][4]);
+                    bundle.putString("choice5", productInfo[2][5]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if(i == 3){
+                    Intent intent = new Intent(Categories.this, Choices.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", productInfo[3][0]);
+                    bundle.putString("choice1", productInfo[3][1]);
+                    bundle.putString("choice2", productInfo[3][2]);
+                    bundle.putString("choice3", productInfo[3][3]);
+                    bundle.putString("choice4", productInfo[3][4]);
+                    bundle.putString("choice5", productInfo[4][5]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else if(i == 4){
+                    Intent intent = new Intent(Categories.this, Choices.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("category", productInfo[4][0]);
+                    bundle.putString("choice1", productInfo[4][1]);
+                    bundle.putString("choice2", productInfo[4][2]);
+                    bundle.putString("choice3", productInfo[4][3]);
+                    bundle.putString("choice4", productInfo[4][4]);
+                    bundle.putString("choice5", productInfo[4][5]);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -215,6 +148,101 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 lowStackWarning();
+            }
+        });
+
+        ArrayAdapter<String> sorted = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sorting);
+        sorted.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sort.setAdapter(sorted);
+
+        sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                String item = parent.getSelectedItem().toString();
+                ArrayList<Object> all = new ArrayList<>();
+                if (item.equals("SORT BY")) {
+                    sa = new SimpleAdapter(Categories.this, list1, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                } else if (item.equals("HOT COFFEES")) {
+                    sa = new SimpleAdapter(Categories.this, list2, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                } else if (item.equals("COLD COFFEES")) {
+                    sa = new SimpleAdapter(Categories.this, list3, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                } else if (item.equals("HOT DRINKS")) {
+                    sa = new SimpleAdapter(Categories.this, list4, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                } else if (item.equals("COLD DRINKS")) {
+                    sa = new SimpleAdapter(Categories.this, list5, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                } else if (item.equals("OTHER")) {
+                    sa = new SimpleAdapter(Categories.this, list6, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
+                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        HashMap<String, String> item1;
+        for (int i = 0; i < productInfo.length; i++) {
+            item1 = new HashMap<String, String>();
+            item1.put("line1", productInfo[i][0]);
+            list1.add(item1);
+        }
+
+        HashMap<String, String> item2;
+        for (int i = 0; i < productInfo.length; i++) {
+            item2 = new HashMap<String, String>();
+            item2.put("line1", productInfo[i][0]);
+            list2.add(item2);
+        }
+
+        HashMap<String, String> item3;
+        for (int i = 0; i < productInfo.length; i++) {
+            item3 = new HashMap<String, String>();
+            item3.put("line1", productInfo[i][0]);
+            list3.add(item3);
+        }
+
+        HashMap<String, String> item4;
+        for (int i = 0; i < productInfo.length; i++) {
+            item4 = new HashMap<String, String>();
+            item4.put("line1", productInfo[i][0]);
+            list4.add(item4);
+        }
+
+        HashMap<String, String> item5;
+        for (int i = 0; i < productInfo.length; i++) {
+            item5 = new HashMap<String, String>();
+            item5.put("line1", productInfo[i][0]);
+            list5.add(item5);
+        }
+
+        HashMap<String, String> item6;
+        for (int i = 0; i < productInfo.length; i++) {
+            item6 = new HashMap<String, String>();
+            item6.put("line1", productInfo[i][0]);
+            list6.add(item6);
+        }
+
+        sa = new SimpleAdapter(Categories.this, list1, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1});
+        products.setAdapter(sa);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                sa.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                sa.getFilter().filter(newText);
+                return false;
             }
         });
     }
@@ -293,6 +321,45 @@ public class Categories extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem searchViewItem = menu.findItem(R.id.nav_search);
+        SearchView searchView = (SearchView) searchViewItem.getActionView();
+        searchView.setQueryHint("Search");
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private String[][] productInfo = {
+            {"Hot Coffees", "Pumpkin Spice Latte", "Dark Roast", "Medium Roast", "Blonde Roast", "Cappuccino"},
+            {"Cold Coffees", "Iced Pumpkin Spice Latte", "Iced Coffee", "Iced Latte", "Cold Brew", "Iced Cappuccino"},
+            {"Hot Drinks", "Pumpkin Chai Latte", "Tea", "Hot Chocolate", "Chai Latte", "Matcha Latte"},
+            {"Cold Drinks", "Iced Pumpkin Chai Latte", "Iced Tea", "Iced Chai Latte", "Iced Matcha Latte", "Juice"},
+            {"Other", "Flavour Shots", "Espresso", "Milk", "Cream", "Sugar"}};
+}
+//menu
+//        drawerLayout = findViewById(R.id.drawer_layout);
+//        navigationView = findViewById(R.id.nav_view);
+//        toolbar = findViewById(R.id.toolbar);
+//
+//        //toolbar
+//        setSupportActionBar(toolbar);
+//        //nav_drawer
+//        navigationView.bringToFront();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+//        drawerLayout.addDrawerListener(toggle);
+//        drawerLayout.setScrimColor(Color.parseColor("#32000000"));
+//        toggle.syncState();
+//        navigationView.setNavigationItemSelectedListener(this);
+//        //headerInfo
+//        setMenuNameAndEmail();
+
 //    @Override
 //    public void onBackPressed() {
 //
@@ -357,8 +424,110 @@ public class Categories extends AppCompatActivity {
 //        });
 //    }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
-}
+//      hotCof.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                category = "Hot Coffees";
+//                choice1 = "Pumpkin Spice Latte";
+//                choice2 = "Dark Roast";
+//                choice3 = "Medium Roast";
+//                choice4 = "Blonde Roast";
+//                choice5 = "Cappuccino";
+//                Intent intent = new Intent(Categories.this, Choices.class);
+//                intent.putExtra("category", category);
+//                intent.putExtra("choice1", choice1);
+//                intent.putExtra("choice2", choice2);
+//                intent.putExtra("choice3", choice3);
+//                intent.putExtra("choice4", choice4);
+//                intent.putExtra("choice5", choice5);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        coldCof.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                category = "Cold Coffees";
+//                choice1 = "Iced Pumpkin Spice Latte";
+//                choice2 = "Iced Coffee";
+//                choice3 = "Iced Latte";
+//                choice4 = "Cold Brew";
+//                choice5 = "Iced Cappuccino";
+//                Intent intent = new Intent(Categories.this, Choices.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", category);
+//                bundle.putString("choice1", choice1);
+//                bundle.putString("choice2", choice2);
+//                bundle.putString("choice3", choice3);
+//                bundle.putString("choice4", choice4);
+//                bundle.putString("choice5", choice5);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        hotD.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                category = "Hot Drinks";
+//                choice1 = "Pumpkin Chai Latte";
+//                choice2 = "Tea";
+//                choice3 = "Hot Chocolate";
+//                choice4 = "Chai Latte";
+//                choice5 = "Matcha Latte";
+//                Intent intent = new Intent(Categories.this, Choices.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", category);
+//                bundle.putString("choice1", choice1);
+//                bundle.putString("choice2", choice2);
+//                bundle.putString("choice3", choice3);
+//                bundle.putString("choice4", choice4);
+//                bundle.putString("choice5", choice5);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        coldD.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                category = "Cold Drinks";
+//                choice1 = "Iced Pumpkin Chai Latte";
+//                choice2 = "Iced Tea";
+//                choice3 = "Iced Chai Latte";
+//                choice4 = "Iced Matcha Latte";
+//                choice5 = "Juice";
+//                Intent intent = new Intent(Categories.this, Choices.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", category);
+//                bundle.putString("choice1", choice1);
+//                bundle.putString("choice2", choice2);
+//                bundle.putString("choice3", choice3);
+//                bundle.putString("choice4", choice4);
+//                bundle.putString("choice5", choice5);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        other.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                category = "Other";
+//                choice1 = "Flavour Shots";
+//                choice2 = "Espresso";
+//                choice3 = "Milk";
+//                choice4 = "Cream";
+//                choice5 = "Sugar";
+//                Intent intent = new Intent(Categories.this, Choices.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putString("category", category);
+//                bundle.putString("choice1", choice1);
+//                bundle.putString("choice2", choice2);
+//                bundle.putString("choice3", choice3);
+//                bundle.putString("choice4", choice4);
+//                bundle.putString("choice5", choice5);
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });

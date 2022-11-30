@@ -21,7 +21,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/check"
         android:layout_width="85dp"
@@ -36,7 +35,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/category_header"
         android:layout_width="wrap_content"
@@ -49,70 +47,45 @@
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/hotCof"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:layout_marginTop="100sp"
-        android:backgroundTint="@color/myrtle_green"
-        android:fontFamily="@font/americantypewriter"
-        android:text="@string/hot_coffees"
-        android:textColor="@color/lavender_blue"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
+            app:defaultQueryHint="@string/Search"
+            android:layout_width="390sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50sp"
+            android:layout_marginStart="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <ListView
+            android:id="@+id/productList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/americantypewriter"
+            android:divider="@color/myrtle_green"
+            android:layout_marginTop="0sp"
+            android:layout_marginStart="10sp"
+            android:dividerHeight="4sp"
+            android:listSelector="@color/rhythm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:smoothScrollbar="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"/>
+    </LinearLayout>
+    <Spinner
+        android:id="@+id/sort"
+        android:layout_width="125sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="280sp"
+        android:layout_marginTop="50sp"
+        android:fontFamily="serif"
+        android:minHeight="48dp"
+        android:contentDescription="SORT BY"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/coldCof"
-        android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:layout_marginTop="225sp"
-        android:backgroundTint="@color/myrtle_green"
-        android:fontFamily="@font/americantypewriter"
-        android:text="@string/cold_coffees"
-        android:textColor="@color/lavender_blue"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/hotD"
-        android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:layout_marginTop="350sp"
-        android:backgroundTint="@color/myrtle_green"
-        android:fontFamily="@font/americantypewriter"
-        android:text="@string/hot_drinks"
-        android:textColor="@color/lavender_blue"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/coldD"
-        android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:layout_marginTop="475sp"
-        android:backgroundTint="@color/myrtle_green"
-        android:fontFamily="@font/americantypewriter"
-        android:text="@string/cold_drinks"
-        android:textColor="@color/lavender_blue"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/other"
-        android:layout_width="match_parent"
-        android:layout_height="100sp"
-        android:layout_marginTop="600sp"
-        android:backgroundTint="@color/myrtle_green"
-        android:fontFamily="@font/americantypewriter"
-        android:text="@string/other"
-        android:textColor="@color/lavender_blue"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
