@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.bouncycastle:bcutil-jdk15to18:1.70">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcutil-jdk15to18/1.70/6862dc4b107e0d3e864539b24ea3c53fe89abbc8/bcutil-jdk15to18-1.70.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcutil-jdk15to18/1.70/47b26f2402126b6db6ed388383bbb4d9f6af2642/bcutil-jdk15to18-1.70-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcutil-jdk15to18/1.70/85fa22374964b6bc3d34610805e92d842d296b6e/bcutil-jdk15to18-1.70-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

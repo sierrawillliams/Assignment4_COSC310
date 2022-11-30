@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/javabucksIM.iml" filepath="$PROJECT_DIR$/.idea/modules/javabucksIM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/javabucksIM.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.main.iml" filepath="$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/library/javabucksIM.library.unitTest.iml" />
+    </modules>
+  </component>
+</project>

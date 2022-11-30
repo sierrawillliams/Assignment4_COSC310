@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.keithchad:design-toast:0.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/da8881584f504c82195eb07b0893974b/transformed/design-toast-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/da8881584f504c82195eb07b0893974b/transformed/design-toast-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/da8881584f504c82195eb07b0893974b/transformed/design-toast-0.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.keithchad/design-toast/0.1.0/7919645927a01d160e16d4b557109bc5b37d6967/design-toast-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
