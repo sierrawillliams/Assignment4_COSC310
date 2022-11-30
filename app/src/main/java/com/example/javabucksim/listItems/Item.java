@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.javabucksim.R;
@@ -16,6 +17,7 @@ public class Item extends AppCompatActivity {
 //    String mCalories, mProtein, mFat, mCarbs, mFiber, mSugar;
 //    String cCalories, cProtein, cFat, cCarbs, cFiber, cSugar;
 //    private DatabaseReference mDatabase;
+    ImageView picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class Item extends AppCompatActivity {
         price12 = findViewById(R.id.price12oz);
         price16 = findViewById(R.id.price16oz);
         price20 = findViewById(R.id.price20oz);
+        picture = findViewById(R.id.photo);
 
         Bundle bundle = getIntent().getExtras();
         String name = bundle.getString("productName");
@@ -42,22 +45,27 @@ public class Item extends AppCompatActivity {
             price12.setText("$4.75");
             price16.setText("$5.25");
             price20.setText("$5.75");
+            picture.setImageResource(R.drawable.psl);
         }  else if (name.equals("Dark Roast")) {
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.istockphoto_1143290013_612x612);
         }  else if (name.equals("Medium Roast")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.medium);
         }  else if (name.equals("Blonde Roast")){
             price12.setText("$2.25");
             price16.setText("$2.75");
             price20.setText("$3.25");
+            picture.setImageResource(R.drawable.blonde);
         }  else if (name.equals("Cappuccino")){
             price12.setText("$3.25");
             price16.setText("$3.75");
             price20.setText("$4.25");
+            picture.setImageResource(R.drawable.cap);
         }  else if (name.equals("Iced Pumpkin Spice Latte")){
             price12.setText("$4.75");
             price16.setText("$5.25");

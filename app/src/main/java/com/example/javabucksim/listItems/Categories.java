@@ -52,7 +52,7 @@ public class Categories extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     int[] productNum = new int[18];
     String[] productName = {"chai", "blondeRoast", "capp", "coffee", "coldbrew", "cups", "darkRoast", "flavour", "juice", "latte", "lids", "matcha", "mediumRoast", "milk", "sleeves", "stoppers", "sugar", "tea"};
-    String[] categories = {"HOT COFFEES", "COLD COFFEES", "HOT DRINKS", "COLD DRINKS", "OTHER"};
+    String[] categories = {"Hot Coffees", "Cold Coffees", "Hot Drinks", "Cold Drinks", "Other"};
     SearchView searchView;
     ListView products;
     Button back, check;
@@ -159,7 +159,7 @@ public class Categories extends AppCompatActivity {
 //        ((ListView) findViewById(R.id.productList)).setAdapter(sa);
 
         //adapter to produce the listview
-        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
+        aa = new ArrayAdapter<String>(this, R.layout.activity_items_list, R.id.textView1, categories);
         products.setAdapter(aa);
 
         //if check is clicked, go to the lowStockWarning method
