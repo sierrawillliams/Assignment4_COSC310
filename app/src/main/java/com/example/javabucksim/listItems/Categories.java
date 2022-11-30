@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
+import com.example.javabucksim.MainActivity;
 import com.example.javabucksim.R;
 import com.example.javabucksim.orders.autoOrder;
 
@@ -51,30 +52,25 @@ public class Categories extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     int[] productNum = new int[18];
     String[] productName = {"chai", "blondeRoast", "capp", "coffee", "coldbrew", "cups", "darkRoast", "flavour", "juice", "latte", "lids", "matcha", "mediumRoast", "milk", "sleeves", "stoppers", "sugar", "tea"};
+    String[] categories = {"HOT COFFEES", "COLD COFFEES", "HOT DRINKS", "COLD DRINKS", "OTHER"};
     SearchView searchView;
     ListView products;
-    Button hotCof, coldCof, hotD, coldD, other, back, check;
-    SimpleAdapter sa;
-    ArrayList<HashMap<String, String>> list1;
-    ArrayList<HashMap<String, String>> list2;
-    ArrayList<HashMap<String, String>> list3;
-    ArrayList<HashMap<String, String>> list4;
-    ArrayList<HashMap<String, String>> list5;
-    ArrayList<HashMap<String, String>> list6;
-    Spinner sort;
-    String[] sorting = {"SORT BY", "HOT COFFEES", "COLD COFFEES", "HOT DRINKS", "COLD DRINKS", "OTHER"};
+    Button back, check;
+    ArrayAdapter<String> aa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-
+        //initialize buttons
         back = findViewById(R.id.backButton);
         check = findViewById(R.id.check);
+        //initialize searchView for the search bar
         searchView = findViewById(R.id.search_bar);
+        //initialize listView for the product list
         products = findViewById(R.id.productList);
-        sort = findViewById(R.id.sort);
 
+        //if back is clicked go to MainActivity.java
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +78,7 @@ public class Categories extends AppCompatActivity {
             }
         });
 
+        //if a product from the listView is clicked, go to Choices.java and pass the values to it
         products.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -144,113 +141,38 @@ public class Categories extends AppCompatActivity {
             }
         });
 
-        check.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lowStackWarning();
-            }
-        });
-
-        ArrayAdapter<String> sorted = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sorting);
-        sorted.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sort.setAdapter(sorted);
-
-        sort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                String item = parent.getSelectedItem().toString();
-                ArrayList<Object> all = new ArrayList<>();
-                if (item.equals("SORT BY")) {
-                    sa = new SimpleAdapter(Categories.this, list1, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                } else if (item.equals("HOT COFFEES")) {
-                    sa = new SimpleAdapter(Categories.this, list2, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                } else if (item.equals("COLD COFFEES")) {
-                    sa = new SimpleAdapter(Categories.this, list3, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                } else if (item.equals("HOT DRINKS")) {
-                    sa = new SimpleAdapter(Categories.this, list4, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                } else if (item.equals("COLD DRINKS")) {
-                    sa = new SimpleAdapter(Categories.this, list5, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                } else if (item.equals("OTHER")) {
-                    sa = new SimpleAdapter(Categories.this, list6, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1, R.id.textView2});
-                    ((ListView) findViewById(R.id.productList)).setAdapter(sa);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        HashMap<String, String> item1;
-        for (int i = 0; i < productInfo.length; i++) {
-            item1 = new HashMap<String, String>();
-            item1.put("line1", productInfo[i][0]);
-            list1.add(item1);
-        }
-
-        HashMap<String, String> item2;
-        for (int i = 0; i < productInfo.length; i++) {
-            item2 = new HashMap<String, String>();
-            item2.put("line1", productInfo[i][0]);
-            list2.add(item2);
-        }
-
-        HashMap<String, String> item3;
-        for (int i = 0; i < productInfo.length; i++) {
-            item3 = new HashMap<String, String>();
-            item3.put("line1", productInfo[i][0]);
-            list3.add(item3);
-        }
-
-        HashMap<String, String> item4;
-        for (int i = 0; i < productInfo.length; i++) {
-            item4 = new HashMap<String, String>();
-            item4.put("line1", productInfo[i][0]);
-            list4.add(item4);
-        }
-
-        HashMap<String, String> item5;
-        for (int i = 0; i < productInfo.length; i++) {
-            item5 = new HashMap<String, String>();
-            item5.put("line1", productInfo[i][0]);
-            list5.add(item5);
-        }
-
-        HashMap<String, String> item6;
-        for (int i = 0; i < productInfo.length; i++) {
-            item6 = new HashMap<String, String>();
-            item6.put("line1", productInfo[i][0]);
-            list6.add(item6);
-        }
-
-        sa = new SimpleAdapter(Categories.this, list1, R.layout.activity_items_list, new String[]{"line1", "line2"}, new int[]{R.id.textView1});
-        products.setAdapter(sa);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                sa.getFilter().filter(query);
+                aa.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                sa.getFilter().filter(newText);
+                aa.getFilter().filter(newText);
                 return false;
+            }
+        });
+
+//        sa = new SimpleAdapter(Categories.this, list1, R.layout.activity_items_list, new String[]{"line1"}, new int[]{R.id.textView1});
+//        ((ListView) findViewById(R.id.productList)).setAdapter(sa);
+
+        //adapter to produce the listview
+        aa = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categories);
+        products.setAdapter(aa);
+
+        //if check is clicked, go to the lowStockWarning method
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowStockWarning();
             }
         });
     }
 
-    void lowStackWarning() {
+    void lowStockWarning() {
         String doc = "j9BQe3OtLP6XnUK66MWK";
-
-
         DocumentReference documentReference = db.collection("Inventory").document(doc);
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
@@ -280,43 +202,40 @@ public class Categories extends AppCompatActivity {
     }
 
     public void alert() {
-        Button check = (Button) findViewById(R.id.check);
+        Button check = findViewById(R.id.check);
 
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 AlertDialog.Builder builder = new AlertDialog.Builder(Categories.this);
-
                 for (int i = 0; i < productNum.length; i++) {
                     if (productNum[i] < 50)
                     {
                         builder.setCancelable(true);
                         builder.setTitle("Low stock warning");
                         builder.setMessage("Please resupply " + productName[i] + ":");
-
                         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.cancel();
                             }
                         });
+
                         builder.setPositiveButton("Order now", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 openOrderActivity();
                             }
                         });
-                        builder.show();
 
+                        builder.show();
                         break;
                     }
                 }
             }
         });
     }
-    public void openOrderActivity()
-    {
+    public void openOrderActivity() {
         Intent intent = new Intent(this, autoOrder.class);
         startActivity(intent);
     }
