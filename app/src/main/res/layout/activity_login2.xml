@@ -7,7 +7,6 @@
     android:background="#C6D4FF"
     tools:context=".login.loginActivity">
 
-
     <EditText
         android:id="@+id/editTextPW"
         android:layout_width="wrap_content"
@@ -67,5 +66,13 @@
         app:layout_constraintStart_toStartOf="@+id/editTextPW"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.519" />
+    <Spinner
+        android:id="@+id/language"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_marginStart="300sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -61,7 +61,18 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    <TextView
+        android:id="@+id/joke_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150sp"
+        android:layout_marginStart="20sp"/>
+    <TextView
+        android:id="@+id/temperature_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170sp"
+        android:layout_marginStart="20sp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_layout"

@@ -33,8 +33,21 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
+
+import io.grpc.internal.JsonParser;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,9 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    //menuName & email
-    TextView menuName;
-    TextView menuEmail;
     String menuFirstNameString;
     String menuLastNameString;
     String menuEmailString;
@@ -60,6 +70,116 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        OkHttpClient client1 = new OkHttpClient();
+
+        Request request1 = new Request.Builder()
+                .url("https://dad-jokes.p.rapidapi.com/random/joke")
+                .get()
+                .addHeader("X-RapidAPI-Key", "c86f769a83msh2f9356d5f2f1315p1fa727jsnc50a67f6dbe3")
+                .addHeader("X-RapidAPI-Host", "dad-jokes.p.rapidapi.com")
+                .build();
+
+        client1.newCall(request1).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    // Get the response body as a String
+                    String responseBody = response.body().string();
+
+                    // Parse the response body as a JSON object
+                    JSONObject json1 = null;
+                    try {
+                        json1 = new JSONObject(responseBody);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Get the joke value from the JSON object
+                    String joke = null;
+                    try {
+                        joke = json1.getString("value");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Update the UI on the main thread
+                    String finalJoke = joke;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Display the joke in a TextView
+                            TextView textView = findViewById(R.id.joke_text);
+                            textView.setText(finalJoke);
+                        }
+                    });
+                }
+            }
+        });
+
+        try {
+            Response response = client1.newCall(request1).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        OkHttpClient client2 = new OkHttpClient();
+
+        Request request2 = new Request.Builder()
+                .url("https://open-weather13.p.rapidapi.com/city/fivedaysforcast/49.93913/119.39489")
+                .get()
+                .addHeader("X-RapidAPI-Key", "c86f769a83msh2f9356d5f2f1315p1fa727jsnc50a67f6dbe3")
+                .addHeader("X-RapidAPI-Host", "open-weather13.p.rapidapi.com")
+                .build();
+
+        // Make the request
+        client2.newCall(request2).enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    // Get the response body as a String
+                    String responseBody = response.body().string();
+
+                    // Parse the response body as a JSON object
+                    JSONObject json2 = null;
+                    try {
+                        json2 = new JSONObject(responseBody);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Get the temperature from the JSON object
+                    double temperature = Double.parseDouble(null);
+                    try {
+                        temperature = json2.getJSONObject("main").getDouble("temp");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Update the UI on the main thread
+                    double finalTemperature = temperature;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Display the temperature in a TextView
+                            TextView textView = findViewById(R.id.temperature_text);
+                            textView.setText(String.format("%.1f", finalTemperature));
+                        }
+                    });
+                }
+            }
+        });
 
         //menu
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -98,6 +218,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setUpLogout();
         setUpItemDetails();
 
+    }
+    public static void main(String[] args){
+        try {
+            URL url = new URL("https://open-weather13.p.rapidapi.com/city/fivedaysforcast/49.93913/119.39489");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.connect();
+
+            int responseCode = connection.getResponseCode();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // check if user is logged in

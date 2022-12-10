@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import com.chad.designtoast.DesignToast;
 import com.example.javabucksim.MainActivity;
@@ -20,25 +22,31 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.net.URLEncoder;
+import com.example.javabucksim.*;
+
 public class loginActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
+    Spinner language;
+    String[] languages = {"EN", "FR", "MAN", "HI", "ES", "AR", "BN", "RU", "PT", "ID"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
 
-        EditText etEmail = findViewById(R.id.editTextEmail);
+        final EditText[] etEmail = {findViewById(R.id.editTextEmail)};
         EditText etPW = findViewById(R.id.editTextPW);
         Button loginBut = findViewById(R.id.loginButton);
+        language = findViewById(R.id.language);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         loginBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString().trim();
+                String email = etEmail[0].getText().toString().trim();
                 String pw = etPW.getText().toString().trim();
 
                 if (!email.isEmpty() && !pw.isEmpty()){

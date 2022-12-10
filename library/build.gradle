@@ -12,6 +12,10 @@ android {
     compileSdkVersion Integer.parseInt("32")
     compileOptions.encoding = 'UTF-8'
 
+    packagingOptions {
+        exclude 'project.properties'
+    }
+
     defaultConfig {
         testInstrumentationRunnerArguments notAnnotation: 'androidx.test.filters.FlakyTest'
         minSdkVersion 22
