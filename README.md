@@ -60,10 +60,13 @@ Classes are organized in the java folder of the app project. These classes are t
 
 ## Features Added for Assignment 4
 
-1. Dynamic photos for items
+
+1. Dynamic photos for items.
 - Shows a photo of each specific item when it is chose from the "Select an item" page.
-2. Search through items by name
+2. Search through items by name.
 - Users can now search the categories and items by name to access them quicker.
----
-## Testing
+3. Added an API to produce a joke upon login.
+- Once logged in, users will recieve a "Dad Joke".
+4. Added an API to show the temperature.
+- Once logged in, users will see the temperature at their location.
 
